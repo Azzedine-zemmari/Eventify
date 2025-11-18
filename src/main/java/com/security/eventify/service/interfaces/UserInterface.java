@@ -6,4 +6,5 @@ import com.security.eventify.model.User;
 
 public interface UserInterface {
     UserDto registerUser(UserRegisterDto user);
+    UserDto findByEmail(String email);
 }
