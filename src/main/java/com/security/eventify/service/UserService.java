@@ -26,6 +26,8 @@ public class UserService implements UserInterface {
     public UserDto registerUser(UserRegisterDto userRegisterDto){
         User user = userMapper.userRegisterDtoToUser(userRegisterDto);
         String hash = passwordEncoder.encode(userRegisterDto.getPassword());
+        String role = "ROLE_"+ userRegisterDto.getRole();
+        user.setRole(role);
         user.setPassword(hash);
         userRepository.save(user);
         return userMapper.userToUserDto(user);

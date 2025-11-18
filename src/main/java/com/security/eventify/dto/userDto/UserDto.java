@@ -11,4 +11,6 @@ public class UserDto {
     private String name ;
     @NotBlank(message = "Veuillez saisir l'email !")
     private String email ;
+    @NotBlank(message = "Veuillez saisir le role !")
+    private String role ;
 }

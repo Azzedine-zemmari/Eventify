@@ -15,4 +15,7 @@ public class UserRegisterDto {
 
     @NotBlank(message = "Veuillez saisir le mot de passe !")
     private String password;
+
+    @NotBlank(message = "Veuillez saisir le role !")
+    private String role ;
 }
