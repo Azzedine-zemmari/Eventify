@@ -1,4 +1,9 @@
 package com.security.eventify.service.interfaces;
 
+import com.security.eventify.dto.userDto.UserDto;
+import com.security.eventify.dto.userDto.UserRegisterDto;
+import com.security.eventify.model.User;
+
 public interface UserInterface {
+    UserDto registerUser(UserRegisterDto user);
 }
