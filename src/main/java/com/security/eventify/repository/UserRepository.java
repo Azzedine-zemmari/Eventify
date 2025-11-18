@@ -1,4 +1,7 @@
 package com.security.eventify.repository;
 
-public class UserRepository {
+import com.security.eventify.model.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface UserRepository extends JpaRepository<User,Integer> {
 }
