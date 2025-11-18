@@ -7,10 +7,8 @@ import com.security.eventify.service.UserService;
 import com.security.eventify.service.interfaces.UserInterface;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -23,6 +21,15 @@ public class UserController {
     public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserRegisterDto userRegisterDto){
         UserDto userDto = userService.registerUser(userRegisterDto);
         return ResponseEntity.ok(userDto);
+    }
+    @GetMapping("/profile")
+    public ResponseEntity<?> getUserProfile(Authentication authentication){
+       String email = authentication.getName();
+       UserDto userDto = userService.findByEmail(email);
+       String name = userDto.getName();
+       String role = userDto.getRole();
+
+       return ResponseEntity.ok("email : " + email + " name : " + name + " role : " + role);
     }
 
 }
