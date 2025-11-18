@@ -5,6 +5,7 @@ import com.security.eventify.dto.userDto.UserRegisterDto;
 import com.security.eventify.model.User;
 import com.security.eventify.service.UserService;
 import com.security.eventify.service.interfaces.UserInterface;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,7 +20,7 @@ public class UserController {
         this.userService = userService;
     }
     @PostMapping("/users")
-    public ResponseEntity<UserDto> createUser(@RequestBody UserRegisterDto userRegisterDto){
+    public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserRegisterDto userRegisterDto){
         UserDto userDto = userService.registerUser(userRegisterDto);
         return ResponseEntity.ok(userDto);
     }
