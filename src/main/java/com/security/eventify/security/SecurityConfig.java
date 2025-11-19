@@ -30,6 +30,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/v1/users").permitAll()
                         .requestMatchers("/api/v1/profile").hasRole("USER")
                         .requestMatchers("/api/v1/update/user/**").hasRole("ADMIN")
+                        .requestMatchers("/api/v1/delete/**").hasRole("ADMIN")
                 .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults()); // pour travailler avec method authentification http basic
         return http.build();

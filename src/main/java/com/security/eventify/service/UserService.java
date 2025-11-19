@@ -61,4 +61,13 @@ public class UserService implements UserInterface {
             throw new UserNotFound("utilisateur avec cette pas trouver !");
         }
     }
+    @Override
+    public void deleteUser(int id){
+        Optional<User> user = userRepository.findById(id);
+        if(user.isPresent()){
+            userRepository.delete(user.get());
+        }else{
+            throw new UserNotFound("utilsateur avec cette id n'est pas trouver ");
+        }
+    }
 }
