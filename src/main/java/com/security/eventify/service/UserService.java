@@ -49,4 +49,16 @@ public class UserService implements UserInterface {
                 .orElseThrow(()-> new UserNotFound("utilisateur n est pas trouver avec ce id "));
         return userMapper.userToUserDto(user);
     }
+    @Override
+    public UserDto updateUser(int id , String role){
+        Optional<User> user = userRepository.findById(id);
+        if(user.isPresent()){
+            User userExsistant = user.get();
+            userExsistant.setRole("ROLE_"+role);
+            User updatedUser = userRepository.save(userExsistant);
+            return userMapper.userToUserDto(updatedUser);
+        }else{
+            throw new UserNotFound("utilisateur avec cette pas trouver !");
+        }
+    }
 }

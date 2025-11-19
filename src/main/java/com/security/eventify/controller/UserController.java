@@ -31,5 +31,10 @@ public class UserController {
 
        return ResponseEntity.ok("email : " + email + " name : " + name + " role : " + role);
     }
+    @PutMapping("/update/user/{id}")
+    public ResponseEntity<UserDto> updateUser(@PathVariable("id") int id , @RequestBody String role){
+        UserDto userDto = userService.updateUser(id , role);
+        return ResponseEntity.ok(userDto);
+    }
 
 }

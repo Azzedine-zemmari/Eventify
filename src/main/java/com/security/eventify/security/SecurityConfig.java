@@ -29,6 +29,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth // pour commenecer les regle du securite sur les route
                 .requestMatchers("/api/v1/users").permitAll()
                         .requestMatchers("/api/v1/profile").hasRole("USER")
+                        .requestMatchers("/api/v1/update/user/**").hasRole("ADMIN")
                 .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults()); // pour travailler avec method authentification http basic
         return http.build();
