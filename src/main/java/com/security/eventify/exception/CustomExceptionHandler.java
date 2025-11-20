@@ -25,4 +25,12 @@ public class CustomExceptionHandler {
         apiErreur.setCode(409);
         return new ResponseEntity<>(apiErreur,HttpStatus.CONFLICT);
     }
+    @ExceptionHandler(EventNotFoundException.class)
+    public ResponseEntity<ApiErreur> eventNotFound(EventNotFoundException e){
+        ApiErreur apiErreur = new ApiErreur();
+        apiErreur.setException(e.getMessage());
+        apiErreur.setDate(LocalDateTime.now());
+        apiErreur.setCode(404);
+        return new ResponseEntity<>(apiErreur,HttpStatus.NOT_FOUND);
+    }
 }
