@@ -11,8 +11,13 @@ public class Registration {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private int userId;
-    private int eventId;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;  // Relation vers User
+
+    @ManyToOne
+    @JoinColumn(name = "event_id")
+    private Event event;  // Relation vers Event
     private LocalDateTime registeredAt;
 
     @Enumerated(EnumType.STRING)
