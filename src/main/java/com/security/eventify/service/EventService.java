@@ -44,7 +44,7 @@ public class EventService {
                 .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
 
         Event event = eventMapper.eventCreateDtoToEvent(eventCreateDto);
-        event.setOrganizerId(user.getId());
+        event.setOrganizer(user);
 
         Event savedEvent = eventRepository.save(event);
         return eventMapper.eventToEventDto(savedEvent);
@@ -57,7 +57,7 @@ public class EventService {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
 
-        if (event.getOrganizerId() != user.getId()) {
+        if (event.getOrganizer().getId() != user.getId()) {
             throw new UnauthorizedActionException("Vous n'êtes pas autorisé à modifier cet événement");
         }
 
@@ -73,7 +73,7 @@ public class EventService {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
 
-        if (event.getOrganizerId() != user.getId()) {
+        if (event.getOrganizer().getId() != user.getId()) {
             throw new UnauthorizedActionException("Vous n'êtes pas autorisé à supprimer cet événement");
         }
 

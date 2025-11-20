@@ -23,7 +23,9 @@ public class Event {
 
     private int capacity;
 
-    private int organizerId; // ID de l'utilisateur qui a créé l'événement
+    @ManyToOne()
+    @JoinColumn(name = "organizerId" , nullable = false)
+    private User organizer; // ID de l'utilisateur qui a créé l'événement
 
     @Column(nullable = false)
     private LocalDateTime createdAt;
