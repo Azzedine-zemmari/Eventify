@@ -15,6 +15,8 @@ import com.security.eventify.service.interfaces.RegistrationInterface;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -53,5 +55,19 @@ public class RegistrationService implements RegistrationInterface {
         else{
             throw new EventNotFoundException("event n est pas existe");
         }
+    }
+    public List<RegistrationDto> getAllRegistration(String email){
+        Optional<User> user = userRepository.findByEmail(email);
+        if(!user.isPresent()){
+            throw new UserNotFound("utilisateur n est pas trouve ");
+        }
+        List<Registration> registrations = registrationRepository.findAllByUser_Id(user.get().getId());
+        List<RegistrationDto> registrationDtos = new ArrayList<>();
+
+        for(Registration registration : registrations){
+           RegistrationDto registrationDto = registrationMapper.registerToRegisterDto(registration);
+           registrationDtos.add(registrationDto);
+        }
+        return registrationDtos;
     }
 }
