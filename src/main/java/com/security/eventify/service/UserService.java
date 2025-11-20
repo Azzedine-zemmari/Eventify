@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
 import javax.swing.text.html.Option;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -69,5 +71,16 @@ public class UserService implements UserInterface {
         }else{
             throw new UserNotFound("utilsateur avec cette id n'est pas trouver ");
         }
+    }
+    @Override
+    public List<UserDto> findAllUsers(){
+        List<User> users = userRepository.findAll();
+        List<UserDto> userDtos = new ArrayList<>();
+
+        for (User user : users){
+             UserDto userDto = userMapper.userToUserDto(user);
+             userDtos.add(userDto);
+        }
+        return userDtos;
     }
 }

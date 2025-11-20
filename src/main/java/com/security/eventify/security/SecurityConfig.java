@@ -33,6 +33,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/delete/**").hasRole("ADMIN")
                         .requestMatchers("/api/organizer/events").hasRole("ORGANIZER")
                         .requestMatchers("/api/organizer/**").hasRole("ORGANIZER")
+                        .requestMatchers("/api/admin/users").hasRole("ADMIN")
                 .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults()); // pour travailler avec method authentification http basic
         return http.build();

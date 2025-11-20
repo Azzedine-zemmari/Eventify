@@ -4,9 +4,12 @@ import com.security.eventify.dto.userDto.UserDto;
 import com.security.eventify.dto.userDto.UserRegisterDto;
 import com.security.eventify.model.User;
 
+import java.util.List;
+
 public interface UserInterface {
     UserDto registerUser(UserRegisterDto user);
     UserDto findByEmail(String email);
     UserDto updateUser(int id , String role);
     void deleteUser(int id);
+    List<UserDto> findAllUsers();
 }
