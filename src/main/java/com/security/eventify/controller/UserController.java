@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1")
 public class UserController {
@@ -51,6 +53,12 @@ public class UserController {
         String username = authentication.getName();
         RegistrationDto registrationDto1 = registrationService.registrer(id,username);
         return ResponseEntity.ok(registrationDto1);
+    }
+    @GetMapping("/user/registrations")
+    public ResponseEntity<List<RegistrationDto>> userRegistration(Authentication authentication){
+        String username = authentication.getName();
+        List<RegistrationDto> registrationDtoList = registrationService.getAllRegistration(username);
+        return ResponseEntity.ok(registrationDtoList);
     }
 
 }
