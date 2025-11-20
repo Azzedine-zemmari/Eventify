@@ -1,7 +1,9 @@
 package com.security.eventify.dto.userDto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import java.time.LocalDateTime;
 
@@ -12,6 +14,7 @@ public class EventUpdateDto {
     private String location;
 
     @Future(message = "La date doit être dans le futur")
+    @JsonFormat(pattern = "dd-MM-yyyy HH:mm")
     private LocalDateTime dateTime;
 
     @Min(value = 1, message = "La capacité doit être au moins 1")
