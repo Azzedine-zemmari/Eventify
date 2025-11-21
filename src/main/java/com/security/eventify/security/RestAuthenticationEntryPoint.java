@@ -1,26 +1,34 @@
 package com.security.eventify.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
-
 
 @Component
 public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
     private final ObjectMapper mapper = new ObjectMapper();
 
     @Override
-    public void commence(HttpServletRequest request , HttpServletResponse response , AuthenticationException authenticationException){
-        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+    public void commence(HttpServletRequest request, HttpServletResponse response,
+                         AuthenticationException authenticationException) throws IOException {
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.setContentType("application/json;charset=UTF-8");
 
-        Map<String , Object> body = new HashMap<>();
+        Map<String, Object> body = new HashMap<>();
+        body.put("code", HttpServletResponse.SC_UNAUTHORIZED);
+        body.put("exception", "Non authentifié");
+        body.put("message", authenticationException.getMessage());
+        body.put("path", request.getServletPath());
+        body.put("date", LocalDateTime.now().toString());
+
+        mapper.writeValue(response.getOutputStream(), body);
     }
 }
